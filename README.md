@@ -11,81 +11,81 @@ For more details and cases I recommand to clone the repository and run the demo 
 
 ```objc
 DSEInterruptibleSequencer *sequencer = [[MyInterruptibleSequencer alloc] init];
-    sequencer.identifier = @"sequencer_with_blocks";
+sequencer.identifier = @"sequencer_with_blocks";
+
+// input data which will be forwarded between the steps as a 'result' parameter
+NSMutableDictionary* input = [NSMutableDictionary dictionaryWithCapacity:1];
+input[@"ShouldInterrupt"] = @NO;
+
+// interrupt text
+sequencer.interruptTest = ^(id result, SequencerInterruptTestCompletion completion) {
     
-    // input data which will be forwarded between the steps as a 'result' parameter
-    NSMutableDictionary* input = [NSMutableDictionary dictionaryWithCapacity:1];
-    input[@"ShouldInterrupt"] = @NO;
-    
-    // interrupt text
-    sequencer.interruptTest = ^(id result, SequencerInterruptTestCompletion completion) {
+    if ([result[@"ShouldInterrupt"] boolValue]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Interrupt" message:@"Do you want to break the task?" preferredStyle:UIAlertControllerStyleAlert];
         
-        if ([result[@"ShouldInterrupt"] boolValue]) {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Interrupt" message:@"Do you want to break the task?" preferredStyle:UIAlertControllerStyleAlert];
-            
-            // actions
-            [alert addAction:[UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault
-                                                    handler:^(UIAlertAction * action) {
-                                                        completion(YES);
-                                                    }]];
-            
-            [alert addAction:[UIAlertAction actionWithTitle:@"NO" style:UIAlertActionStyleCancel
-                                                    handler:^(UIAlertAction * action) {
-                                                        completion(NO);
-                                                    }]];
-            [self presentViewController:alert animated:YES completion:nil];
-        }else{
-            completion(NO);
-        }
-    };
-    
-    // block to invoke when sequence is interrupted
-    sequencer.interruptedBlock = ^(id nextRresult){
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Interrupted" message:@"Sequencer has been stopped." preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                handler:nil]];
+        // actions
+        [alert addAction:[UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault
+                                                handler:^(UIAlertAction * action) {
+                                                    completion(YES);
+                                                }]];
+        
+        [alert addAction:[UIAlertAction actionWithTitle:@"NO" style:UIAlertActionStyleCancel
+                                                handler:^(UIAlertAction * action) {
+                                                    completion(NO);
+                                                }]];
         [self presentViewController:alert animated:YES completion:nil];
-    };
+    }else{
+        completion(NO);
+    }
+};
+
+// block to invoke when sequence is interrupted
+sequencer.interruptedBlock = ^(id nextRresult){
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Interrupted" message:@"Sequencer has been stopped." preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                            handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
+};
+
+// setps
+[sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+    NSLog(@"Sequencer with blocks setp 1 DONE.");
     
-    // setps
-    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        NSLog(@"Sequencer with blocks setp 1 DONE.");
-        
-        // set interrupt flag
-        result[@"ShouldInterrupt"] = @YES;
-        
-        // go to next step (if you omit invocation of completion block, here is the point where sequencer stops and is removed)
-        // mark the following line as comment ane look at the console log to check it out
-        completion(result);
-    }];
+    // set interrupt flag
+    result[@"ShouldInterrupt"] = @YES;
     
-    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        NSLog(@"Sequencer with blocks setp 2 DONE.");
-        completion(result);
-    }];
+    // go to next step (if you omit invocation of completion block, here is the point where sequencer stops and is removed)
+    // mark the following line as comment ane look at the console log to check it out
+    completion(result);
+}];
+
+[sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+    NSLog(@"Sequencer with blocks setp 2 DONE.");
+    completion(result);
+}];
+
+[sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+    NSLog(@"Sequencer with blocks setp 3 DONE.");
+    completion(result);
+}];
+
+// last step
+[sequencer enqueueStep:^(id result, SequencerCompletion completion) {
     
-    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        NSLog(@"Sequencer with blocks setp 3 DONE.");
-        completion(result);
-    }];
+    // show alert, there is no finish block because it is not needed
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Done" message:@"Sequence completed." preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                            handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
     
-    // last step
-    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        
-        // show alert, there is no finish block because it is not needed
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Done" message:@"Sequence completed." preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                handler:nil]];
-        [self presentViewController:alert animated:YES completion:nil];
-        
-        NSLog(@"Sequencer with blocks setp 4 (last) DONE.");
-        
-        // following line is required in case you use DSEInterruptibleSequencerDidFinishNotification notification
-        // or if you want to inform the delegate that the sequence is finished
-        //completion(result);
-    }];
+    NSLog(@"Sequencer with blocks setp 4 (last) DONE.");
     
-    [sequencer runWithResult:input];
+    // following line is required in case you use DSEInterruptibleSequencerDidFinishNotification notification
+    // or if you want to inform the delegate that the sequence is finished
+    //completion(result);
+}];
+
+[sequencer runWithResult:input];
 ```
 
 Original "Sequencer"

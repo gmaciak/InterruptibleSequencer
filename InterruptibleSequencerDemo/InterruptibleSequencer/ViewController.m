@@ -58,7 +58,7 @@
 }
 
 - (void)startSequence {
-    DSEInterruptibleSequencer *sequencer = [[MyInterruptibleSequencer alloc] init];
+    InterruptibleSequencer *sequencer = [[MyInterruptibleSequencer alloc] init];
     sequencer.identifier = @"sequencer_with_blocks";
     
     // input data which will be forwarded between the steps as a 'result' parameter
@@ -87,7 +87,8 @@
         // set interrupt flag
         result[@"ShouldInterrupt"] = @YES;
         
-        // go to next step (if you omit invocation of completion block, here is the point where sequencer stops and is removed)
+        // go to next step (if invocation of completion block is missing
+        // here is the point where sequencer stops and is removed)
         // mark the following line as comment ane look at the console log to check it out
         completion(result);
     }];
@@ -118,7 +119,7 @@
 }
 
 - (void)startSequenceWithNotifications {
-    DSEInterruptibleSequencer *sequencer = [[MyInterruptibleSequencer alloc] init];
+    InterruptibleSequencer *sequencer = [[MyInterruptibleSequencer alloc] init];
     sequencer.identifier = @"sequencer_with_notifications";
     
     // you need to enable notifications of the sequencer if you want to handle them
@@ -172,7 +173,7 @@
 }
 
 - (void)startSequenceWithDelegate {
-    DSEInterruptibleSequencer *sequencer = [[MyInterruptibleSequencer alloc] init];
+    InterruptibleSequencer *sequencer = [[MyInterruptibleSequencer alloc] init];
     sequencer.identifier = @"sequencer_with_notifications";
     
     // you need to set delegate of the sequencer
@@ -266,15 +267,15 @@
 
 #pragma mark - DSEInterruptibleSequencerDelegate
 
-- (BOOL)interruptibleSequencer:(DSEInterruptibleSequencer *)sequencer shouldInterrupt:(id)result {
+- (BOOL)interruptibleSequencer:(InterruptibleSequencer *)sequencer shouldInterrupt:(id)result {
     return [result[@"ShouldInterrupt"] boolValue];
 }
 
-- (void)interruptibleSequencer:(DSEInterruptibleSequencer *)sequencer interrupted:(id)result {
+- (void)interruptibleSequencer:(InterruptibleSequencer *)sequencer interrupted:(id)result {
     [self showInterruptedAlertWithTitle:@"Delegate"];
 }
 
-- (void)interruptibleSequencer:(DSEInterruptibleSequencer *)sequencer didFinishWithResult:(id)result {
+- (void)interruptibleSequencer:(InterruptibleSequencer *)sequencer didFinishWithResult:(id)result {
     [self showFinishedAlertWithTitle:@"Delegate"];
 }
 

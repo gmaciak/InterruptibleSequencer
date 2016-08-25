@@ -14,7 +14,7 @@
 		A63F825B1D6DDEA500AF46DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A63F825A1D6DDEA500AF46DE /* Assets.xcassets */; };
 		A63F825E1D6DDEA500AF46DE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A63F825C1D6DDEA500AF46DE /* LaunchScreen.storyboard */; };
 		A63F82691D6DDEA500AF46DE /* InterruptibleSequencerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A63F82681D6DDEA500AF46DE /* InterruptibleSequencerTests.m */; };
-		A63F82781D6DDEC000AF46DE /* DSEInterruptibleSequencer.m in Sources */ = {isa = PBXBuildFile; fileRef = A63F82751D6DDEC000AF46DE /* DSEInterruptibleSequencer.m */; };
+		A63F82781D6DDEC000AF46DE /* InterruptibleSequencer.m in Sources */ = {isa = PBXBuildFile; fileRef = A63F82751D6DDEC000AF46DE /* InterruptibleSequencer.m */; };
 		A63F82791D6DDEC000AF46DE /* Sequencer.m in Sources */ = {isa = PBXBuildFile; fileRef = A63F82771D6DDEC000AF46DE /* Sequencer.m */; };
 		A63F827C1D6DE34900AF46DE /* MyInterruptibleSequencer.m in Sources */ = {isa = PBXBuildFile; fileRef = A63F827B1D6DE34900AF46DE /* MyInterruptibleSequencer.m */; };
 /* End PBXBuildFile section */
@@ -43,8 +43,8 @@
 		A63F82641D6DDEA500AF46DE /* InterruptibleSequencerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InterruptibleSequencerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A63F82681D6DDEA500AF46DE /* InterruptibleSequencerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InterruptibleSequencerTests.m; sourceTree = "<group>"; };
 		A63F826A1D6DDEA500AF46DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A63F82741D6DDEC000AF46DE /* DSEInterruptibleSequencer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSEInterruptibleSequencer.h; sourceTree = "<group>"; };
-		A63F82751D6DDEC000AF46DE /* DSEInterruptibleSequencer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSEInterruptibleSequencer.m; sourceTree = "<group>"; };
+		A63F82741D6DDEC000AF46DE /* InterruptibleSequencer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterruptibleSequencer.h; sourceTree = "<group>"; };
+		A63F82751D6DDEC000AF46DE /* InterruptibleSequencer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterruptibleSequencer.m; sourceTree = "<group>"; };
 		A63F82761D6DDEC000AF46DE /* Sequencer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sequencer.h; sourceTree = "<group>"; };
 		A63F82771D6DDEC000AF46DE /* Sequencer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sequencer.m; sourceTree = "<group>"; };
 		A63F827A1D6DE34900AF46DE /* MyInterruptibleSequencer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyInterruptibleSequencer.h; sourceTree = "<group>"; };
@@ -126,8 +126,8 @@
 		A63F82731D6DDEC000AF46DE /* Sequencer */ = {
 			isa = PBXGroup;
 			children = (
-				A63F82741D6DDEC000AF46DE /* DSEInterruptibleSequencer.h */,
-				A63F82751D6DDEC000AF46DE /* DSEInterruptibleSequencer.m */,
+				A63F82741D6DDEC000AF46DE /* InterruptibleSequencer.h */,
+				A63F82751D6DDEC000AF46DE /* InterruptibleSequencer.m */,
 				A63F82761D6DDEC000AF46DE /* Sequencer.h */,
 				A63F82771D6DDEC000AF46DE /* Sequencer.m */,
 			);
@@ -239,7 +239,7 @@
 				A63F82791D6DDEC000AF46DE /* Sequencer.m in Sources */,
 				A63F82531D6DDEA500AF46DE /* AppDelegate.m in Sources */,
 				A63F827C1D6DE34900AF46DE /* MyInterruptibleSequencer.m in Sources */,
-				A63F82781D6DDEC000AF46DE /* DSEInterruptibleSequencer.m in Sources */,
+				A63F82781D6DDEC000AF46DE /* InterruptibleSequencer.m in Sources */,
 				A63F82501D6DDEA500AF46DE /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -429,6 +429,7 @@
 				A63F826F1D6DDEA500AF46DE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A63F82701D6DDEA500AF46DE /* Build configuration list for PBXNativeTarget "InterruptibleSequencerTests" */ = {
 			isa = XCConfigurationList;
@@ -437,6 +438,7 @@
 				A63F82721D6DDEA500AF46DE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -6,8 +6,8 @@
 //  Copyright © 2016 Grzegorz Maciak. All rights reserved.
 //
 
-#import "DSEInterruptibleSequencer.h"
+#import "InterruptibleSequencer.h"
 
-@interface MyInterruptibleSequencer : DSEInterruptibleSequencer
+@interface MyInterruptibleSequencer : InterruptibleSequencer
 
 @end

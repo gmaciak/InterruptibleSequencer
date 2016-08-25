@@ -3,8 +3,30 @@
 //  InterruptibleSequencer
 //
 //  Created by Grzegorz Maciak on 24.10.2014.
-//  Copyright (c) 2014 Grzegorz Maciak. All rights reserved.
+//  Copyright (c) 2016 Grzegorz Maciak. All rights reserved.
 //
+
+// This code is distributed under the terms and conditions of the MIT license:
+
+// Copyright (c) 2016 Grzegorz Maciak
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
 
 #import "Sequencer.h"
 
@@ -13,7 +35,7 @@ typedef void(^SequencerInterruptTest)(id result, SequencerInterruptTestCompletio
 
 @protocol DSEInterruptibleSequencerDelegate;
 
-@interface DSEInterruptibleSequencer : Sequencer
+@interface InterruptibleSequencer : Sequencer
 
 @property(nonatomic,copy) NSString* identifier;
 @property(nonatomic,assign) id<DSEInterruptibleSequencerDelegate> delegate;
@@ -39,9 +61,9 @@ typedef void(^SequencerInterruptTest)(id result, SequencerInterruptTestCompletio
 
 @protocol DSEInterruptibleSequencerDelegate <NSObject>
 @optional
-- (BOOL)interruptibleSequencer:(DSEInterruptibleSequencer*)sequencer shouldInterrupt:(id)result;
-- (void)interruptibleSequencer:(DSEInterruptibleSequencer*)sequencer interrupted:(id)result;
-- (void)interruptibleSequencer:(DSEInterruptibleSequencer*)sequencer didFinishWithResult:(id)result;
+- (BOOL)interruptibleSequencer:(InterruptibleSequencer*)sequencer shouldInterrupt:(id)result;
+- (void)interruptibleSequencer:(InterruptibleSequencer*)sequencer interrupted:(id)result;
+- (void)interruptibleSequencer:(InterruptibleSequencer*)sequencer didFinishWithResult:(id)result;
 @end
 
 FOUNDATION_EXPORT NSString* const DSEInterruptibleSequencerDidFinishNotification;

@@ -1,4 +1,16 @@
-Sequencer
+InterruptibleSequencer
+=========
+
+InterruptibleSequencer is an extension of an iOS library for asynchronous flow control which I found very useful in my work.
+
+It alows to break the sequence after each step.
+You may ask the user about confirmation and depending on the decision break the sequence or continue.
+
+For more details I recommand to download and run the demo application on iOS.
+
+
+
+Original "Sequencer"
 =========
 
 Sequencer is an iOS library for asynchronous flow control.

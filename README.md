@@ -54,7 +54,8 @@ sequencer.interruptedBlock = ^(id nextRresult){
     // set interrupt flag
     result[@"ShouldInterrupt"] = @YES;
     
-    // go to next step (if you omit invocation of completion block, here is the point where sequencer stops and is removed)
+    // go to next step (if invocation of completion block is missing
+    // here is the point where sequencer stops and is removed)
     // mark the following line as comment ane look at the console log to check it out
     completion(result);
 }];
